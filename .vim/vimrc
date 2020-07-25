@@ -1,0 +1,109 @@
+set nocompatible
+
+so ~/.vim/plugins.vim
+
+set hidden
+
+" Start scrolling three lines before the horizontal window border
+set scrolloff=3
+
+" speed up
+set lazyredraw
+set ttyfast
+
+" turn off folding
+set nofoldenable
+
+" history
+set history=1000
+
+" Allow backspace in insert mode
+set backspace=indent,eol,start
+
+" indent
+set shiftwidth=2
+set softtabstop=2
+set tabstop=2
+set expandtab
+set autoindent
+
+" enable mouse
+set mouse=a
+
+set wildmenu
+set laststatus=2
+set number
+set linebreak wrap nolist
+
+set nobackup
+set noswapfile
+set nowritebackup
+set autoread
+
+" Resize panes when window/terminal gets resize
+autocmd VimResized * :wincmd =
+
+
+" Strip trailing whitespace
+function! <SID>StripTrailingWhitespaces()
+    let _s=@/
+    let l = line(".")
+    let c = col(".")
+    " Do the business:
+    %s/\s\+$//e
+    " Clean up: restore previous search history, and cursor position
+    let @/=_s
+    call cursor(l, c)
+endfunction
+autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
+
+
+"---------------Visuals---------------"
+if exists('+termguicolors')
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
+
+set background=dark
+
+colorscheme gruvbox
+
+set guifont=HackNerdFontComplete-Regular:h14
+
+"---------------Search---------------"
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+
+nnoremap <Leader><space> :nohlsearch<cr>
+
+"---------------Split Management---------------"
+set splitbelow
+set splitright
+
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-H> <C-W><C-H>
+nnoremap <C-L> <C-W><C-L>
+
+"---------------Mappings---------------"
+
+"---------------Plugins---------------"
+
+" NERDtree
+
+nnoremap <Leader>t :NERDTreeToggle<cr>
+
+" Ack.vim
+
+if executable('ag')
+	let g:ackprg = 'ag --vimgrep'
+endif
+
+" Fzf
+nmap <Leader>; :Buffers<CR>
+nmap <Leader>f :Files<CR>
+nmap <Leader>r :Tags<CR>
+
