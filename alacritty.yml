@@ -393,6 +393,12 @@ colors:
 #  program: /bin/bash
 #  args:
 #    - --login
+shell:
+  program: /usr/local/bin/tmux
+  args:
+    - new
+    - -As
+    - main
 
 # Startup directory
 #
